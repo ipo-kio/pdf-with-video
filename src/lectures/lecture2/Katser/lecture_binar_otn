@@ -1,0 +1,791 @@
+\documentclass[russian]{lecture-notes}
+
+\usepackage[final]{graphicx}
+\usepackage{subcaption}
+\usepackage{timestamps}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{misccorr}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\title{Лекция "Бинарные отношения"}
+\lecturer{Поздняков Сергей Николаевич}
+\notesauthor{Кацер Евгений}
+\date{22 мая 2018 г.}
+\youtubevideo{oXcW6PIXd4s}
+
+\begin{document}
+	\maketitle
+
+\timestamp{00:39}
+
+\section*{Свойства бинарных отношений:}
+
+\begin{enumerate}
+	
+	\item {\bf Рефлексивность \label{opr:refleks}}
+			\begin{definition} 
+				$R$~--- \underline{рефлексивно} на множестве $M$, если, по определению, $\forall x \in M$, в котором это отношение определено, $xRx$ ($x$ находится в отношении с самим собой)
+			\end{definition}
+
+	\begin{example*}
+		Делимость ($x/y$)~--- рефлексивное отношение, если рассматривается подмножество $\mathbb{Z}$, не содержащее 0. Например, на множестве $\mathbb{N}$
+	\end{example*}
+
+	\begin{example*}
+		Строгое сравнение ($x<y$)~--- нерефлексивное отношение
+	\end{example*}
+
+	\begin{example*}
+		Сравнение по модулю ($x \equiv y \pmod m)$~--- рефлексивное отношение
+	\end{example*}
+	
+	Если рефлексивное отношение задано:
+	\begin{itemize}
+		\item Матрицей, то на главной диагонали будут стоять 1
+		\begin{equation*}
+		\left(
+		\begin{array}{cccc}
+		1 & a_{12} & \ldots & a_{1n}\\
+		a_{21} & 1 & \ldots & a_{2n}\\
+		\vdots & \vdots & \ddots & \vdots\\
+		a_{n1} & a_{n2} & \ldots & 1
+		\end{array}
+		\right)
+		\end{equation*}
+		
+		\newpage
+		
+		\item Графом, то он представляет псевдограф
+		
+		\begin{figure}[h]
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [->, thick, rotate=45] (-1.915,0) arc(0:345:0.5 and 0.25);
+				\draw [<-, thick, rotate=-45] (1.915,-0.1) arc(190:525:0.5 and 0.25);
+				\draw [->, thick] (0,1) arc(-90:255:0.25 and 0.5);
+			}
+			\caption{Рефлексивность на графе}
+			\label{fig:refleks}
+		\end{figure}
+
+	\end{itemize}
+	
+	\timestamp{05:39}
+	\item {\bf Антирефлексивность \label{opr:antirefleks}}
+	\begin{definition}
+		$R$~--- \underline{антирефлексивно} на множестве $M$, если, по определению, $\forall x \in M$, в котором это отношение определено, $x \cancel{R} x$ ($x$ не находится в отношении с самим собой)
+	\end{definition}
+
+	\setcounter{example*}{0}
+	
+	\begin{example*}
+		Взаимная простота (НОД$(x, y) = 1$)~--- антирефлексивное отношение, например, на подмножестве $\mathbb{N}$, не содержащем 1
+	\end{example*}
+
+	\begin{example*}
+		Строгое меньше ($x<y$)~--- антирефлексивное отношение
+	\end{example*}
+	
+	Если антирефлексивное отношение задано:
+	\begin{itemize}
+		\item Матрицей, то на главной диагонали будут стоять 0
+		\begin{equation*}
+		\left(
+		\begin{array}{cccc}
+		0 & a_{12} & \ldots & a_{1n}\\
+		a_{21} & 0 & \ldots & a_{2n}\\
+		\vdots & \vdots & \ddots & \vdots\\
+		a_{n1} & a_{n2} & \ldots & 0
+		\end{array}
+		\right)
+		\end{equation*}
+		
+		\item Графом, то у него не будет петель, будут только ребра
+		
+		\begin{figure}[H]
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [->, dashed, thick] (-0.75,-0.55) -- (-0.30, 0.10);
+				\draw [->, dashed, thick] (0.30, 0.10) -- (0.75,-0.55);
+			}
+			\caption{\small Антирефлексивность на графе}
+			\label{fig:antirefleks}
+		\end{figure}
+	\end{itemize}
+	
+	\begin{note}	
+		Отношение может быть и нерефлексивным (\ref{opr:refleks}), и не антирефлексивным (\ref{opr:antirefleks}). Если такое отношение задается матрицей, то на её главной диагонали должны стоять и 0, и 1
+	\end{note}
+	
+	\timestamp{08:50}
+	\item {\bf Симметричность \label{opr:simmetr}}
+	\begin{definition}
+		$R$~--- \underline{симметрично} на множестве $M$, если, по определению, $\forall x, y \in M$, в котором это отношение определено, $xRy \Rightarrow yRx$ ($x$ находится в отношении с $y$, и $y$ находится в отношении с $x$)
+	\end{definition}
+
+	\setcounter{example*}{0}
+	
+	\begin{example*}
+		Взаимная простота (НОД$(x, y) = 1$)~--- симметричное отношение, например, на подмножестве $\mathbb{N}$, не содержащем 1
+	\end{example*}
+
+	\begin{example*}
+		Равенство ($x=y$)~--- симметричное отношение
+	\end{example*}
+
+	\begin{example*}
+		Сравнение по модулю ($x \equiv y \pmod m$)~--- симметричное отношение
+	\end{example*}
+	
+	Если симметричное отношение задано:
+	\begin{itemize}
+		\item Матрицей, то матрица симметричная
+		\begin{equation*}
+		\left(
+		\begin{array}{cccc}
+		a_{11} & a_{12} & \ldots & a_{1n}\\
+		a_{21} & a_{22} & \ldots & a_{2n}\\
+		\vdots & \vdots & \ddots & \vdots\\
+		a_{n1} & a_{n2} & \ldots & a_{nn}
+		\end{array}
+		\right) 
+		= 
+		\left(
+		\begin{array}{cccc}
+		a_{11} & a_{12} & \ldots & a_{1n}\\
+		a_{21} & a_{22} & \ldots & a_{2n}\\
+		\vdots & \vdots & \ddots & \vdots\\
+		a_{n1} & a_{n2} & \ldots & a_{nn}
+		\end{array}
+		\right)^T
+		\end{equation*}
+		
+		\item Графом, то он будет неориентированный
+		\begin{figure}[h]
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [thick] (-0.75,-0.55) -- (-0.30, 0.10);
+				\draw [thick] (0.30, 0.10) -- (0.75,-0.55);
+			}
+		\caption{\small Симметричность на графе}
+		\label{fig:simmetr}
+		\end{figure}
+	\end{itemize}
+	
+	\timestamp{11:44}
+	\item {\bf Антисимметричность \label{opr:antisimmetr}}
+	\begin{definition}
+		$R$~--- \underline{антисимметрично} на множестве $M$, если, по определению, $\forall x, y \in M$, в котором это отношение определено, $xRy$ и $yRx$ $\Rightarrow x=y$ (если $x$ находится в отношении с $y$, и $y$ находится в отношении с $x$, то они совпадают)
+	\end{definition}
+
+	\setcounter{example*}{0}
+	
+	\begin{example*}
+		Нестрогое сравнение ($x \geqslant y$)~--- антисимметричное отношение
+	\end{example*}
+
+	\begin{example*}
+		Равенство ($x=y$)~--- антисимметричное отношение
+	\end{example*}
+
+	\begin{example*}
+		Делимость ($x/y$)~--- антисимметрично на множестве $\mathbb{N}$
+	\end{example*}
+	
+	Если симметричное отношение задано:
+	\begin{itemize}
+		\item Матрицей, то если элемент матрицы = 1, то симметричный ему относительно главной диагонали~--- 0, если элемент = 0, то симметричный ему~--- любой и на главной диагонали могут стоять и 0, и 1. Например:
+		\begin{equation*}
+		\left(
+		\begin{array}{cccc}
+		0 & 0 & 1\\
+		1 & 1 & 0\\
+		0 & 0 & 1
+		\end{array}
+		\right) 
+		\end{equation*}
+		
+		\item Графом, то его <<стрелки>> направлены всегда в одну сторону
+		\begin{figure}[h]
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [->, thick] (-0.75,-0.55) -- (-0.30, 0.10);
+				\draw [<-, thick] (0.30, 0.10) -- (0.75,-0.55);
+			}
+			\caption{\small Антисимметричность на графе}
+			\label{fig:antisimmetr}
+		\end{figure}
+	\end{itemize}
+	
+	\timestamp{16:59}
+	\item {\bf Асимметричность \label{opr:asimmetr}}
+	\begin{definition}
+		$R$~--- \underline{асимметрично} на множестве $M$, если, по определению, $\forall x, y \in M$, в котором это отношение определено, $xRy \Rightarrow y \cancel{R}y$ (если $x$ находится в отношении с $y$, то $y$ не находится в отношении с $x$)
+	\end{definition}
+	
+	\begin{example}
+		Строгое сравнение ($x>y$)~--- асимметричное отношение
+	\end{example}
+	
+	\newpage
+	
+	Если асимметричное отношение задано:
+	\begin{itemize}
+		\item Матрицей, то если элемент матрицы = 1, то симметричный ему относительно главной диагонали~--- 0, если элемент = 0, то симметричный ему~--- любой и на главной диагонали стоят 0. Например:
+		\begin{equation*}
+		\left(
+		\begin{array}{cccc}
+		0 & 0 & 1\\
+		1 & 0 & 0\\
+		0 & 0 & 0
+		\end{array}
+		\right) 
+		\end{equation*}
+		
+		\item Графом, то его <<стрелки>> направлены всегда в одну сторону
+		\begin{figure}[h]
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [->, thick] (-0.75,-0.55) -- (-0.30, 0.10);
+				\draw [<-, thick] (0.30, 0.10) -- (0.75,-0.55);
+			}
+			\caption{\small Асимметричность на графе}
+			\label{fig:asimmetr}
+		\end{figure}
+	\end{itemize}
+
+	\begin{note*}
+		Если отношение асимметрично, то оно и антирефлексивно, и антисимметрично.
+	\end{note*}
+
+	\begin{note*}
+		Асимметричное отношение задает более жёсткие условия по сравнению с антисимметричным отношением.
+	\end{note*}
+	
+	\timestamp{20:38}
+	\item {\bf Транзитивность \label{opr:tranzit}}
+	\begin{definition}
+		$R$~--- \underline{транзитивно} на множестве $M$, если, по определению, $\forall x, y, z \in M$, в котором это отношение определено, $xRy$ и $yRx \Rightarrow xRz$ (если $x$ находится в отношении с $y$, и $y$ находится в отношении с $x$, то $x$ находится в отношении с $z$)
+	\end{definition}
+	
+	\begin{figure}[H]
+		\begin{subfigure}[h]{0.49\linewidth}
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [->, thick] (-0.75,-0.55) -- (-0.30, 0.10);
+				\draw [->, thick] (0.30, 0.10) -- (0.75,-0.55);
+				\draw [->, thick, dashed] (-0.5, -1) -- (0.5, -1);
+				\coordinate [label=above:$y$] (y) at (0, 1);
+				\coordinate [label=-135:$x$] (x) at (-1.3, -1.3);
+				\coordinate [label=-45:$z$] (z) at (1.3, -1.3);
+			}
+			\subcaption{\small Отношение транзитивно, если добавить ребро из $x$ в $z$}
+			\label{fig:tranzit(a)}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[h]{0.49\linewidth}
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-1,-1) circle(5mm);
+				\path [thick, draw=black] (1,-1) circle(5mm);
+				\path [thick, draw=black] (0,0.5) circle(5mm);
+				\draw [->, thick] (-0.75,-0.55) -- (-0.30, 0.10);
+				\draw [->, thick] (-0.5, -1) -- (0.5, -1);
+				\coordinate [label=above:$y$] (y) at (0, 1);
+				\coordinate [label=-135:$x$] (x) at (-1.3, -1.3);
+				\coordinate [label=-45:$z$] (z) at (1.3, -1.3);
+			}
+			\subcaption{\small Отношение транзитивно}
+			\label{fig:tranzit(b)}
+		\end{subfigure}
+		\caption{\small Транзитивность на графах}
+		\label{fig:tranzit}
+	\end{figure}
+
+	\begin{note}
+		Добавляя ребро из $x$ в $z$ мы осущесвляем транзитивное замыкание
+	\end{note}
+	
+\end{enumerate}
+
+\timestamp{26:57}
+\begin{center}
+	\section*{\LARGE\S 3 Отношение эквивалентности \label{par:otnosh}}
+\end{center}
+
+\begin{definition}
+	\label{opr:otnosh}
+	Отношение $R$ на множестве $M$ называется \underline{отношением эквивалентности} по определению, если оно обладает следующими свойствами:
+	\begin{enumerate}
+		\item Рефлексивность (\ref{opr:refleks})
+		\item Симметричность (\ref{opr:simmetr})
+		\item Транзитивность (\ref{opr:tranzit})
+	\end{enumerate}
+\end{definition}
+
+\setcounter{example*}{0}
+
+\begin{example*}
+	Отношение подобия треугольников:
+	\begin{enumerate}
+		\item Рефлексивно, так как каждый треугольник подобен самому себе
+		\item Симметрично, так как если первый треугольник подобен второму, то и второй треугольник подобен первому
+		\item Транзитивно, так как если первый треугольник подобен второму, а второй подобен третьему, то первый треугольник подобен третьему
+	\end{enumerate}
+\end{example*}
+	
+\begin{example*}
+		Отношение сравнимости по модулю $m$ ($xRy \Leftrightarrow x \equiv y \pmod m$ на множестве $M = \mathbb{Z}$):
+		\begin{enumerate}
+			\item $x\equiv x \pmod m$
+			\item $x\equiv y \pmod m \Rightarrow y\equiv x \pmod m$
+			\item $x\equiv y \pmod m, \ y\equiv z \pmod m \Rightarrow x\equiv z \pmod m$
+		\end{enumerate}
+\end{example*}
+
+\begin{example*}
+		Проверим то же самое по свойству сравнимости $x \equiv y \pmod m \Leftrightarrow (x-y)\mathop{\raisebox{-2pt}{\vdots}}m$, тогда:
+		\begin{enumerate}
+			\item $x-x=0 \Rightarrow (x-x)\mathop{\raisebox{-2pt}{\vdots}}m$
+			\item $\begin{cases}
+					(x-y)\mathop{\raisebox{-2pt}{\vdots}}m
+					\\
+					y-x=-(x-y)
+					\end{cases}
+					\Rightarrow (y-x)\mathop{\raisebox{-2pt}{\vdots}}m$
+			\item Доказать, что $\begin{cases}
+					(x-y)\mathop{\raisebox{-2pt}{\vdots}}m
+					\\
+					(y-z)\mathop{\raisebox{-2pt}{\vdots}}m
+					\end{cases}
+					\Rightarrow (x-z)\mathop{\raisebox{-2pt}{\vdots}}m$\\
+					По свойству делимости, если $x\mathop{\raisebox{-2pt}{\vdots}}m$ и $y\mathop{\raisebox{-2pt}{\vdots}}m$, то и $(x+y)\mathop{\raisebox{-2pt}{\vdots}}m\Rightarrow \underbrace{((x-y)+(y-z))}_{(x-z)} \mathop{\raisebox{-2pt}{\vdots}}m \Rightarrow \newline \hspace*{5mm} \Rightarrow (x-z)\mathop{\raisebox{-2pt}{\vdots}}m$
+		\end{enumerate}
+\end{example*}
+
+\timestamp{36:48}
+\begin{theorem}[о классах эквивалентности\label{teor:klass}]
+	Если на множестве $M$ задано отношение эквивалентности $R$, то все множество $M$ разбивается на (непересекающиеся) классы, объединение которых есть $M$, так, что любые элементы из одного класса между собой эквивалентны, а элементы из разных классов не эквивалентны.
+\end{theorem}
+
+\begin{figure}[h]
+	\centering
+	\tikz{
+		\draw [thick] (2,-1.3) -- (3,1);
+		\draw [thick] (3,1) -- (5,0.6);
+		\draw [thick] (2,-1.3) -- (5,0.6);
+		
+		\draw [thick] (0,0) -- (0,2);
+		\draw [thick] (0,0) -- (-4,1);
+		\draw [thick] (0,0) -- (-2,1.4);
+		\draw [thick] (-4,1) -- (-2,1.4);
+		\draw [thick] (-4,1) -- (-3,3);
+		\draw [thick] (-3,3) -- (-2,1.4);
+		\draw [thick] (-3,3) -- (0,2);
+		\draw [thick] (0,2) -- (-2,1.4);
+		
+		\draw[thick, black] (-3,3) arc (90:180:1.15 and 2);
+		\draw[thick, black] (0,0) arc (-45:135:2 and 2.2);
+		
+		\path [thick, fill=white, draw=black] (0,0) circle(3mm);
+		\path [thick, fill=white, draw=black] (-2,-1.3) circle(3mm);
+		\path [thick, fill=white, draw=black] (2,-1.3) circle(3mm);
+		\path [thick, fill=white, draw=black] (3,1) circle(3mm);
+		\path [thick, fill=white, draw=black] (5,0.6) circle(3mm);
+		\path [thick, fill=white, draw=black] (0,2) circle(3mm);
+		\path [thick, fill=white, draw=black] (-3,3) circle(3mm);
+		\path [thick, fill=white, draw=black] (-2,1.4) circle(3mm);
+		\path [thick, fill=white, draw=black] (-4,1) circle(3mm);
+		
+		\coordinate [label=-135:$x$] (x) at (-4.15,0.85);
+	}
+	\caption{\small Классы эквивалентности, если отношение задано на графах}
+	\label{fig:klass}
+\end{figure}
+
+\begin{note}
+	На Рисунке \ref{fig:klass} граф неориентированный, петли в каждой вершине не нарисованы. Всего представлено 3 класса эквивалентности. Каждый из них является полным графом
+\end{note}
+
+\begin{proof}
+	Обозначим за $M_x=\{y \in M \mid yRx\}$. Для доказательства достаточно доказать, что любые 2 класса такого вида либо совпадают, либо не пересекаются.
+	
+	От противного: пусть нашлось два таких класса $M_x$ и $M_y$, что они не совпадают и пересекаются.
+	
+	\begin{figure}[H]
+		\centering
+		\tikz{
+			\path [thick, draw=black] (-0.75,0) circle(1cm);
+			\path [thick, draw=black] (0.75,0) circle(1cm);
+			
+			\path [thick, fill=black, draw=black] (-0.75,0) circle(1.3mm);
+			\path [thick, fill=black, draw=black] (0.75,0) circle(1.3mm);
+			\path [thick, fill=black, draw=black] (0,0) circle(1.3mm);
+			
+			\coordinate [label=below:$z$] (z) at (0,-0.1);
+			\coordinate [label=-135:$x$] (x) at (-0.76,-0.1);
+			\coordinate [label=-45:$y$] (y) at (0.76,-0.1);
+		}
+		\caption{\small Точки - множества подмножеств}
+		\label{fig:dok1}
+	\end{figure}
+	
+	Не умаляя общности, будем считать, что $x \notin M_y$ и $y \notin M_x$, а $\underbrace{z \in M_x}_{zRx}$ и $\underbrace{z \in M_y}_{zRy}$\newline
+	
+	$zRx \Rightarrow xRz$ по симметричности $\Rightarrow
+	\begin{cases}
+		xRz 
+		\\
+		zRy
+	\end{cases} \Rightarrow [\text{по транзитивности}] \Rightarrow xRy \Rightarrow x \in M_y$ -- противоречие!!!
+	
+\end{proof}
+
+\timestamp{50:14}
+\begin{algorithm}[H]
+	\caption{Алгоритм построения классов эквивалентности}\label{alg:klass}
+	\begin{algorithmic}[1]
+		\State Инициализация:
+		\For {$i$ от $1$ до $n$}
+		\State $color(i) := 0$
+		\EndFor
+		\Statex
+		\State $C := 0$
+		\Comment{номер цвета}
+		\Statex
+		\For {$i$ от $1$ до $n$}
+		\If{$color(i) = 0$}
+		\State $C := C + 1$
+		\State \Call{pokras}{$i, n, C$}
+		\Comment{Раскрасить в цвет $C$ все элементы, находящиеся в отношении $R$ с $i$ номером и имеющие больший, либо равный номер}
+		\EndIf
+		\EndFor
+		\Statex
+		\Procedure{pokras}{$i, n, C$}
+		\For {$j$ от $i$ до $n$}
+		\If {$jRi$}
+		\State $color(j) := C$
+		\EndIf
+		\EndFor
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[H]
+	\centering
+	\tikz{
+		\draw[thick, black] (1.5,0.3) arc (0:180:2.5 and 1.7);
+		\draw[thick, black] (-0.5,0.3) arc (0:180:1 and 0.7);
+		\draw[thick, black] (-0.5,0.3) arc (0:180:0.5 and 0.35);
+		\draw[thick, black] (-1.5,0.3) arc (0:180:0.5 and 0.35);
+		\draw[thick, black] (2.5,-0.3) arc (0:-180:1 and 0.7);
+		
+		\path [thick, fill=blue, draw=black] (0.5,0) circle(3mm);
+		\path [thick, fill=red, draw=black] (-0.5,0) circle(3mm);
+		\path [thick, fill=black, draw=black] (1.5,0) circle(3mm);
+		\path [thick, fill=red, draw=black] (-1.5,0) circle(3mm);
+		\path [thick, fill=blue, draw=black] (2.5,0) circle(3mm);
+		\path [thick, fill=red, draw=black] (-2.5,0) circle(3mm);
+		\path [thick, fill=white, draw=black] (3.5,0) circle(3mm);
+		\path [thick, fill=black, draw=black] (-3.5,0) circle(3mm);
+		
+		\coordinate [label=135:$1$] (1) at(-3.65,0.15);
+		\coordinate [label=45:$1$] (1) at(1.65,0.15);
+		\coordinate [label=below:$2$] (2) at(-2.5,-0.3);
+		\coordinate [label=below:$2$] (2) at(-1.5,-0.3);
+		\coordinate [label=below:$2$] (2) at(-0.5,-0.3);
+		\coordinate [label=above:$3$] (3) at(0.5,0.3);
+		\coordinate [label=above:$3$] (3) at(2.5,0.3);
+		\coordinate [label=below:$4$] (4) at(3.5,-0.3);
+	}
+	\caption{\small Пример работы алгоритма}
+	\label{fig:examplealg}
+\end{figure}
+
+\timestamp{58:27}
+\begin{center}
+	\section*{\LARGE\S 4 Отношение порядка}
+\end{center}
+
+\begin{definition}
+	$R$~--- \underline{отношение (нестрогого) порядка}, если, по определению, $R$ обладает свойствами:
+	\begin{enumerate}
+		\item Рефлексивность (\ref{opr:refleks})
+		\item Антисимметричность (\ref{opr:antisimmetr})
+		\item Транзитивность (\ref{opr:tranzit})
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}
+	$R$~--- \underline{отношение строгого порядка}, если оно обладает свойствами:
+	\begin{enumerate}
+		\item Антирефлексивность (\ref{opr:antirefleks})~--- можно не писать, так как если отношение асимметрично, то оно и антирефлексивно
+		\item Асимметричность (\ref{opr:asimmetr})
+		\item Транзитивность (\ref{opr:tranzit})
+	\end{enumerate}
+\end{remark}
+
+\setcounter{example*}{0}
+
+\begin{example*}
+	\label{examp:1}
+	$xRy \Leftrightarrow x \mathop{\raisebox{-2pt}{\vdots}} y$ на множестве $\mathbb{N}$. Проверим свойства:
+	\begin{enumerate}
+		\item $x \mathop{\raisebox{-2pt}{\vdots}} x \ \ \ \forall x \in \mathbb{N}$
+		\item $x \mathop{\raisebox{-2pt}{\vdots}} y \text{ и } y \mathop{\raisebox{-2pt}{\vdots}} x \Rightarrow x=y$
+		\item $x \mathop{\raisebox{-2pt}{\vdots}} y \text{ и } y \mathop{\raisebox{-2pt}{\vdots}} z \Rightarrow x \mathop{\raisebox{-2pt}{\vdots}} z$
+	\end{enumerate}
+\end{example*}
+
+\begin{example*}
+	\label{examp:2}
+	$xRy \Leftrightarrow x \leqslant y$ на множестве $\mathbb{R}$. Проверим свойства:
+	\begin{enumerate}
+		\item $x \leqslant x$
+		\item $x \leqslant y \text{ и } y \leqslant x \Rightarrow x=y$
+		\item $x \leqslant y \text{ и } y \leqslant z \Rightarrow x\leqslant z$
+	\end{enumerate}
+\end{example*}
+
+\timestamp{65:02}
+
+\begin{remark}
+	Существует свойство 4, которым обладает пример \ref{examp:2} и не обладает пример \ref{examp:1}\\
+	{\bf Свойство 4:}
+	$\forall x,y \in M$ верно $xRy \text{ или } yRx$
+\end{remark}
+
+\begin{definition}
+	Отношение порядка, удовлетворяющее свойству 4, называется \underline{отношением линейного порядка}, иначе \underline{отношением частичного порядка}
+\end{definition}
+
+\begin{example}
+\end{example}
+
+\begin{figure}[h]
+	\centering
+	\tikz{
+		\draw [thick] (-0.8,0.5) -- (0.8,0.5) -- (0.8,1.2) -- (-0.8,1.2) -- cycle;
+		\draw [thick] (-1.3,-1) -- (1.3,-1) -- (1.3,-0.3) -- (-1.3,-0.3) -- cycle;
+		\draw [thick] (-4.3,-1) -- (-1.7,-1) -- (-1.7,-0.3) -- (-4.3,-0.3) -- cycle;
+		\draw [thick] (1.9,-1) -- (4.1,-1) -- (4.1,-0.3) -- (1.9,-0.3) -- cycle;
+		\draw [thick] (-6.7,-2.5) -- (-3.4,-2.5) -- (-3.4,-1.8) -- (-6.7,-1.8) -- cycle;
+		\draw [thick] (-1,-2.5) -- (1,-2.5) -- (1,-1.8) -- (-1,-1.8) -- cycle;
+		
+		\draw [->, thick] (0,0.5) -- (0,-0.3);
+		\draw [->, thick] (0,0.5) -- (3,-0.3);
+		\draw [->, thick] (0,0.5) -- (-3,-0.3);
+		\draw [->, thick] (-3,-1) -- (-5.05,-1.8);
+		\draw [->, thick] (0,-1) -- (0,-1.8);
+		\draw [->, thick] (-0.8,0.85) arc (90:180:4.5 and 2.65);
+		\draw [->, thick] (0.8,0.85) arc (90:0:4.5 and 3) -- (1,-2.15);
+		
+		\coordinate [label=above:Ректор] (A) at (0,0.5);
+		\coordinate [label=above:Проректор 1] (B1) at (-3,-1);
+		\coordinate [label=above:Проректор 2] (B2) at (0,-1);
+		\coordinate [label=above:Секретарь] (B3) at (3,-1);
+		\coordinate [label=above:Зав. кафедрой 1] (C1) at (-5,-2.5);
+		\coordinate [label=above:Завхоз 1] (C2) at (0,-2.42);
+	}
+	\caption{\small Отношение частичного порядка}
+	\label{fig:otnchastpor}
+\end{figure}
+
+\timestamp{70:28}
+\begin{definition}
+	\underline{Топологическая сортировка}~--- добавление связей. Мы как будто выстраиваем блоки в одну линию
+\end{definition}
+
+\begin{example}
+	Совершим топологическую сортировку в предыдущем примере (\ref{fig:otnchastpor})
+\end{example}
+
+\begin{figure}[h]
+	\centering
+	\tikz{
+		\draw [thick] (-8,0) -- (-6.4,0) -- (-6.4,0.7) -- (-8,0.7) -- cycle;
+		\draw [thick] (-6,0) -- (-3.4,0) -- (-3.4,0.7) -- (-6,0.7) -- cycle;
+		\draw [thick] (-3,0) -- (-0.4,0) -- (-0.4,0.7) -- (-3,0.7) -- cycle;
+		\draw [thick] (0.05,0) -- (3.3,0) -- (3.3,0.7) -- (0.05,0.7) -- cycle;
+		\draw [thick] (3.8,0) -- (5.55,0) -- (5.55,0.7) -- (3.8,0.7) -- cycle;
+		\draw [thick] (6.05,0) -- (8.15,0) -- (8.15,0.7) -- (6.05,0.7) -- cycle;
+		
+		\draw [->, thick] (-7.2,0.7) arc (180:0:1.25 and 0.5);
+		\draw [->, thick] (-7.2,0.7) arc (180:0:2.7 and 0.8);
+		\draw [->, thick] (-7.2,0.7) arc (180:0:4.5 and 1.1);
+		\draw [->, thick] (-7.2,0.7) arc (180:0:6 and 1.4);
+		\draw [->, thick] (-7.2,0.7) arc (180:0:7.2 and 1.7);
+		
+		\draw [->, thick] (-4.7,0) arc (-180:0:1.5 and 0.5);
+		\draw [->, thick] (-4.7,0) arc (-180:0:3.15 and 0.8);
+		\draw [->, thick] (-4.7,0) arc (-180:0:4.65 and 1.1);
+		\draw [->, thick] (-4.7,0) arc (-180:0:5.85 and 1.4);
+		
+		\draw [->, thick] (-1.6,0.7) arc (180:0:1.6 and 0.5);
+		\draw [->, thick] (-1.6,0.7) arc (180:0:3.1 and 0.8);
+		\draw [->, thick] (-1.6,0.7) arc (180:0:4.3 and 1.1);
+		
+		\draw [->, thick] (1.815,0) arc (-180:0:1.5 and 0.5);
+		\draw [->, thick] (1.815,0) arc (-180:0:2.7 and 0.8);
+		
+		\draw [->, thick] (5.55,0.35) -- (6.05,0.35);
+		
+		\coordinate [label=above:Ректор] (A) at (-7.2,0);
+		\coordinate [label=above:Проректор 1] (B1) at (-4.7,0);
+		\coordinate [label=above:Проректор 2] (B2) at (-1.7,0);
+		\coordinate [label=above:Зав. кафедрой 1] (C1) at (1.7,0);
+		\coordinate [label=above:Завхоз 1] (C2) at (4.7,0.08);
+		\coordinate [label=above:Секретарь] (B3) at (7.1,0);
+	}
+	\caption{\small Топологическая сортировка}
+	\label{fig:topsort}
+\end{figure}
+
+\timestamp{73:16}
+\begin{definition}
+	$L$~--- \underline{согласовано} с $R$, если, по определению, $\forall x,y \in M$: $xRy \Rightarrow xLy$
+\end{definition}
+
+\begin{problem}
+	Построить отношение линейного порядка $L$, согласованное с заданным отношением частичного порядка $R$
+\end{problem}
+
+\timestamp{76:06}
+\begin{algorithm}[H]
+	\caption{Алгоритм топологической сортировки}\label{alg:topsort}
+	\begin{algorithmic}[1]
+		\State $M$~--- конечное множество
+		\State $L:=R$
+		\Statex
+		\While {$M \ne 0$}
+		\State Найти минимальный эл-т $m$ множества $M$ относительно $R$
+		\State Добавим к $L$ пары $(m,x)$ такие, что $x \in M$
+		\State Удалим $m$ из $M$
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+Обоснуем алгоритм:
+
+\begin{definition}
+	\label{opr:min}
+	$x$~--- \underline{минимальный элемент} в $M$ относительно $R$, если не существует $m \in M$: $mRx$
+\end{definition}
+
+\begin{lemma}
+	\label{lem:min}
+	Если $M$~--- конечно, то минимальный элемент существует
+\end{lemma}
+
+\begin{proof}
+	\label{proof:min}
+	От противного: пусть минимальный элемент не существует. Возьмем какой-нибудь элемент $x_1$. Для него найдется элемент меньше ($x_2$). Для $x_2$ найдется ещё меньший элемент~--- $x_3$, но, так как у нас конечное число элементов, где-то должен образоваться цикл. Пусть перед $x_i$ стоит элемент $x_j$, то есть существует условие $x_jRx_i$ (между повторением $x_i$ все элементы разные)
+	\begin{center}
+		$\underbrace{x_i \dots x_jRx_i}_{\text{т.к. число эл-тов конечно}} \dots x_3Rx_2Rx_1$
+	\end{center}
+	Проверим кусок элементов от $x_i$ до $x_j$ включительно
+	\begin{center}
+		$x_iRx_k \dots Rx_j \Rightarrow \text{[по транзитивности]} \Rightarrow x_iRx_j$
+	\end{center}
+	$\begin{cases}
+		x_iRx_j
+		\\
+		x_jRx_i
+	\end{cases} \Rightarrow \text{[в силу симметрии]} \Rightarrow x_i=x_j$~--- противоречие!!!
+	
+\end{proof}
+
+\begin{example}
+\end{example}
+
+\begin{figure}[H]
+	\centering
+	\tikz{
+		\draw [thick] (-0.5,0) -- (0.5,0) -- (0.5,0.5) -- (-0.5,0.5) -- cycle;
+		\draw [thick] (-1.5,-1) -- (-0.5,-1) -- (-0.5,-0.5) -- (-1.5,-0.5) -- cycle;
+		\draw [thick] (0.5,-1) -- (1.5,-1) -- (1.5,-0.5) -- (0.5,-0.5) -- cycle;
+		\draw [thick] (-0.25,-2) -- (0.75,-2) -- (0.75,-1.5) -- (-0.25,-1.5) -- cycle;
+		\draw [thick] (1.25,-2) -- (2.25,-2) -- (2.25,-1.5) -- (1.25,-1.5) -- cycle;
+		
+		\draw [->, thick] (0,0) -- (-1,-0.5);
+		\draw [->, thick] (0,0) -- (1,-0.5);
+		\draw [->, thick] (1,-1) -- (0.25,-1.5);
+		\draw [->, thick] (1,-1) -- (1.75,-1.5);
+	}
+	\caption{\small У этого множества 3 минимальных элемента}
+\end{figure}
+
+\begin{proof}
+	Докажем, что алгоритм строит согласованное отношение линейного порядка
+	\begin{enumerate}
+		\item Отношение согласованно, так как в процессе алгоритма мы только добавляем (все отношения. которые были, останутся)
+		\item Отношение линейного порядка. Сопоставим каждому элементу $m \in M$ номер, которым мы его удалили из $M$
+		
+		\begin{figure}[h]
+			\centering
+			\tikz{
+				\path [thick, draw=black] (-3,0) circle(2mm);
+				\path [thick, draw=black] (-2,0) circle(2mm);
+				\path [thick, fill=black] (-1.15,0) circle(0.5mm);
+				\path [thick, fill=black] (-1,0) circle(0.5mm);
+				\path [thick, fill=black] (-0.85,0) circle(0.5mm);
+				\path [thick, draw=black] (0,0) circle(2mm);
+				\path [thick, fill=black] (1.15,0) circle(0.5mm);
+				\path [thick, fill=black] (1,0) circle(0.5mm);
+				\path [thick, fill=black] (0.85,0) circle(0.5mm);
+				\path [thick, draw=black] (2,0) circle(2mm);
+				\path [thick, fill=black] (3.15,0) circle(0.5mm);
+				\path [thick, fill=black] (3,0) circle(0.5mm);
+				\path [thick, fill=black] (2.85,0) circle(0.5mm);
+				\path [thick, draw=black] (4,0) circle(2mm);
+				
+				\draw [->, thick] (-3,0.2) arc (180:0:0.5 and 0.25);
+				\draw [->, thick] (-3,0.2) arc (180:0:1.5 and 0.55);
+				\draw [->, thick] (-3,0.2) arc (180:0:2.5 and 0.85);
+				\draw [->, thick] (-3,0.2) arc (180:0:3.5 and 1.15);
+				\draw [->, thick] (-2,-0.2) arc (-180:0:1 and 0.25);
+				\draw [->, thick] (-2,-0.2) arc (-180:0:2 and 0.55);
+				\draw [->, thick] (-2,-0.2) arc (-180:0:3 and 0.85);
+				
+				\coordinate [label=below:1] (1) at(-3,-0.2);
+				\coordinate [label=-135:2] (2) at(-1.9,-0.2);
+				\coordinate [label=-45:i] (i) at(0,-0.2);
+				\coordinate [label=-45:j] (j) at(2,-0.2);
+				\coordinate [label=-45:n] (n) at(4,-0.2);
+			}
+			\caption{\small Сопоставим элементам номера}
+			\label{fig:sopostav}
+		\end{figure}
+		
+		Полученное отношение совпадает с отношением  $\leqslant$ на множестве номеров. А про отношение $\leqslant$ мы знаем, что это отношение линейного порядка
+	\end{enumerate}
+
+\end{proof}
+
+\end{document}
