@@ -3,4 +3,8 @@
 
 * [Бинарные отношения](dist/lecture-viewer.html?pdf=../lectures/binary_relations.pdf)
 * [Раскраска графов](dist/lecture-viewer.html?pdf=../lectures/graphs_colorings.pdf)
-* [Классы вычетов](dist/lecture-viewer.html?pdf=../lectures/residue_classes.pdf)
+* [Классы вычетов. Теорема Ферма. Китайская теорема об остатках](dist/lecture-viewer.html?pdf=../lectures/residue_classes.pdf)
+* [Арифметические операции над многочленами](dist/lecture-viewer.html?pdf=../lectures/arithmetic_operation_on_polynomials.pdf)
+* Расширенный алгоритм Евклида. [не готово](dist/lecture-viewer.html?pdf=../lectures/extended_euclidian_algorithm.pdf)
+* Бесконечные цепные дроби. Простые числа. Основная теорема арифметики.. [не готово](dist/lecture-viewer.html?pdf=../lectures/infinite_continued_fractions.pdf)
+* Транзитивное замыкание. Алгоритм Уоршалла. Теорема Эйлера. Планарные графы. [не готово](dist/lecture-viewer.html?pdf=../lectures/transitive_closure.pdf)
