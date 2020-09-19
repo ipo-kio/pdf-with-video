@@ -9,3 +9,6 @@
 * [Алгоритмически неразрешимые задачи. Алгоритмы построения минимальных остовных деревьев.](dist/lecture-viewer.html?pdf=../lectures/constructing_minimal_spanning_trees.pdf)
 * Расширенный алгоритм Евклида. [не готово](dist/lecture-viewer.html?pdf=../lectures/extended_euclidian_algorithm.pdf)
 * Транзитивное замыкание. Алгоритм Уоршалла. Теорема Эйлера. Планарные графы. [не готово](dist/lecture-viewer.html?pdf=../lectures/transitive_closure.pdf)
+* Вычислительная сложность. [не готово] (dist/lecture-viewer.html?pdf=../lectures/computational_complexity.pdf)
+* Построение кратчайших путей в графе. [не готово] (dist/lecture-viewer.html?pdf=../lectures/shortest_path_in_a_graph.pdf)
+
