@@ -11,4 +11,4 @@
 * [Транзитивное замыкание. Алгоритм Уоршалла. Теорема Эйлера. Планарные графы.](dist/lecture-viewer.html?pdf=../lectures/transitive_closure.pdf)
 * [Вычислительная сложность](dist/lecture-viewer.html?pdf=../lectures/computational_complexity.pdf)
 * [Построение кратчайших путей в графе.](dist/lecture-viewer.html?pdf=../lectures/shortest_path_in_a_graph.pdf)
-
+* [Замечательные идеи комбинаторики.](dist/lecture-viewer.html?pdf=../lectures/combinatorial_ideas.pdf)
