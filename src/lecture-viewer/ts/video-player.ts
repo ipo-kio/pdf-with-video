@@ -6,7 +6,7 @@ export async function load_player_api(): Promise<void> {
         const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        (<any>window).onYouTubeIframeAPIReady = () => resolve();
+        window.onYouTubeIframeAPIReady = () => resolve();
     });
 }
 
@@ -19,7 +19,7 @@ export class VideoPlayer {
             width: '640',
             videoId: video_id,
             events: {
-                // 'onReady': onPlayerReady,
+                // 'onReady': () => {console.log('player ready!')},
                 // 'onStateChange': onPlayerStateChange
             }
         });
