@@ -63,7 +63,7 @@ let debug_configuration = {
 
 module.exports = env => {
     let config;
-    if (env && env.mode === 'prod')
+    if (env && env.production)
         config = merge.merge(base_config, prod_configuration);
     else
         config = merge.merge(base_config, debug_configuration);

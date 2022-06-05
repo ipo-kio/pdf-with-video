@@ -4,7 +4,7 @@
   "description": "PDF with timecodes linking to positions in videos",
   "scripts": {
     "watch": "webpack --watch",
-    "build-prod": "webpack --env.mode=prod",
+    "build-prod": "webpack --env production",
     "build": "webpack"
   },
   "repository": {
